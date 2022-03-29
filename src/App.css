@@ -58,6 +58,10 @@ button {
 	background: #282a3a;
 	transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 	backface-visibility: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.5rem;
 }
 
 .card-back {

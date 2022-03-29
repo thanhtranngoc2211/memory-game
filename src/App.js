@@ -30,18 +30,55 @@ const shuffle = (array) => {
 	return array;
 };
 
+function emojiObject(icon) {
+	this.icon = icon;
+	this.flip = false;
+}
+
+const generateRound = (array) => {
+	let roundObject = Array(0);
+	for (let i in array) {
+		roundObject.push(new emojiObject(emojis[array[i]]));
+	}
+	return roundObject;
+};
+
 function App() {
 	const [roundEmojis, setRoundEmojis] = useState([]);
 	const [win, setWin] = useState(false);
+	const [count, setCount] = useState(0);
 
 	useEffect(() => {
 		let roundEmojis = initEmojis();
 		let roundArray = shuffle([...roundEmojis, ...roundEmojis]);
-		setRoundEmojis(roundArray);
-		console.log(roundArray);
+		let roundObject = generateRound(roundArray);
+		setRoundEmojis(roundObject);
+		console.log(roundObject);
 	}, []);
 
-	const handleClick = () => {};
+	useEffect(() => {
+		if (count === 2) {
+			setTimeout(() => {
+				setCount(0);
+				console.log("set");
+				let round = [...roundEmojis];
+				for (let i in round) {
+					if (round[i].flip === true) {
+						round[i].flip = false;
+					}
+				}
+				setRoundEmojis(round);
+			}, 2000);
+		} else return;
+	}, [count, roundEmojis]);
+
+	const handleClick = (index) => {
+		let round = [...roundEmojis];
+		round[index].flip = true;
+		setRoundEmojis(round);
+		console.log(roundEmojis);
+		setCount(count + 1);
+	};
 
 	return (
 		<div className="App">
@@ -54,14 +91,15 @@ function App() {
 					</div>
 				</div>
 				<div className="board-container">
-					<div className="board" data-dimension="4">
-						{roundEmojis.map((i) => (
-							<div className="card">
-								<div className="card-front" onClick={handleClick}>
-									{i}
-								</div>
-								<div className="card-back" onClick={handleClick}>
-									1
+					<div className="board">
+						{roundEmojis.map((i, index) => (
+							<div className="card" key={index}>
+								<div
+									className={!i.flip ? "card-front" : "card-back"}
+									onClick={count !== 2 ? () => handleClick(index) : null}
+								></div>
+								<div className={!i.flip ? "card-back" : "card-front"}>
+									{i.icon}
 								</div>
 							</div>
 						))}
