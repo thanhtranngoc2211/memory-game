@@ -2,14 +2,44 @@ import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import { motion } from "framer-motion";
 
-const emojis = ["🥔", "🍒", "🥑", "🌽", "🥕", "🍇", "🍉", "🍌", "🥭", "🍍"];
+const emojis = [
+	"🥔",
+	"🍒",
+	"🥑",
+	"🌽",
+	"🥕",
+	"🍇",
+	"🍉",
+	"🍌",
+	"🥭",
+	"🍍",
+	"🍑",
+	"🥥",
+	"🍆",
+	"🌶️",
+	"🫐",
+];
 
-const initEmojis = () => {
-	let emojis = Array(0);
-	for (let i = 0; i < 8; i++) {
-		emojis.push(Math.floor(Math.random() * 10));
+const initEmojis = (emojis) => {
+	let roundEmojis = Array(0);
+	let dummyArray = Array(0);
+	for (let i = 0; i < emojis.length; i++) {
+		dummyArray.push(i);
 	}
-	return emojis;
+	for (let i = 0; i < 8; i++) {
+		let count = 0;
+		let element = dummyArray[Math.floor(Math.random() * dummyArray.length)];
+		roundEmojis.push(element);
+		for (let i = 0; i < dummyArray.length; i++) {
+			if (element === dummyArray[i]) {
+				dummyArray.splice(count, 1);
+				count = 0;
+			} else {
+				count++;
+			}
+		}
+	}
+	return roundEmojis;
 };
 
 const shuffle = (array) => {
@@ -58,11 +88,10 @@ function App() {
 
 	useEffect(() => {
 		setWinCount(0);
-		let roundEmojis = initEmojis();
+		let roundEmojis = initEmojis(emojis);
 		let roundArray = shuffle([...roundEmojis, ...roundEmojis]);
 		let roundObject = generateRound(roundArray);
 		setRoundEmojis(roundObject);
-		console.log(roundObject);
 	}, [restart]);
 
 	useEffect(() => {
@@ -128,7 +157,6 @@ function App() {
 			let timeStart = setInterval(() => {
 				timeOut++;
 				setTime(timeOut);
-				console.log("hey");
 			}, 1000);
 			intervalRef.current = timeStart;
 		}, 1500);
