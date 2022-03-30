@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import { motion } from "framer-motion";
 
@@ -52,6 +52,9 @@ function App() {
 	const [compareEmojis, setCompareEmojis] = useState([]);
 	const [winCount, setWinCount] = useState(0);
 	const [restart, setRestart] = useState(false);
+	const [move, setMove] = useState(0);
+	const [time, setTime] = useState(0);
+	const intervalRef = useRef();
 
 	useEffect(() => {
 		setWinCount(0);
@@ -65,6 +68,8 @@ function App() {
 	useEffect(() => {
 		if (winCount === 8) {
 			setWin(true);
+			clearInterval(intervalRef.current);
+			console.log("win");
 			setWinCount(0);
 		}
 
@@ -103,10 +108,12 @@ function App() {
 
 			setCount(count + 1);
 		}
+		setMove(move + 1);
 	};
 
 	const handleStart = () => {
 		setStart(true);
+		let timeOut = 0;
 		let round = [...roundEmojis];
 		for (let i in round) {
 			round[i].flip = true;
@@ -118,10 +125,18 @@ function App() {
 				round[i].flip = false;
 			}
 			setRoundEmojis(round);
+			let timeStart = setInterval(() => {
+				timeOut++;
+				setTime(timeOut);
+				console.log("hey");
+			}, 1000);
+			intervalRef.current = timeStart;
 		}, 1500);
 	};
 
 	const handleRestart = () => {
+		setMove(0);
+		setTime(0);
 		setRestart(!restart);
 		setWin(false);
 		setStart(false);
@@ -141,7 +156,7 @@ function App() {
 						</motion.button>
 						<div className="stats">
 							<div className="moves">0 moves</div>
-							<div className="timer">time: 0 sec</div>
+							<div className="timer">time: {time} sec</div>
 						</div>
 						{win && (
 							<button className="restart" onClick={handleRestart}>
@@ -171,8 +186,8 @@ function App() {
 				<div className="controls">
 					<button>Start</button>
 					<div className="stats">
-						<div className="moves">0 moves</div>
-						<div className="timer">time: 0 sec</div>
+						<div className="moves">{move} moves</div>
+						<div className="timer">time: {time} sec</div>
 					</div>
 					{win && (
 						<motion.button
