@@ -30,7 +30,7 @@ const IncomingFeature = () => {
         matched: false,
       };
     }
-    // console.log('emoji', emojis);
+    console.log('emoji', emojis);
     return emojis;
   };
 
@@ -65,7 +65,7 @@ const IncomingFeature = () => {
   let shuffledData = shuffle(InitData);
   let reIndexData = reIndex(shuffledData);
 
-  IncomingFeature();
+  // IncomingFeature();
   return reIndexData;
 };
 export default InitCard;

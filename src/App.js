@@ -76,13 +76,7 @@ function App() {
     <div className="App">
       <div>
         <div className="controls">
-          <StartButton
-            setRoundEmojis={setRoundEmojis}
-            setMoves={setMoves}
-            setTurnDownUnmatched={setTurnDownUnmatched}
-            setCountMatched={setCountMatched}
-            setWin={setWin}
-          />
+          <StartButton />
           <div className="stats">
             <MovesCount moves={moves} />
             <MatchedCount countMatched={countMatched} />
@@ -106,7 +100,7 @@ function App() {
           </div>
           {win && (
             <div className="win">
-              You won in {moves} moves! Press Start or hit F5 to play again!
+              You won in {moves} moves! Click on New game or hit F5 to play again!
             </div>
           )}
         </div>
