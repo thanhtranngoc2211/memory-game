@@ -12,18 +12,16 @@ const CardFlip = (props) => {
   };
 
   useEffect(() => {
-    if ((props.TurnDownUnmatched === true) && (!props.CardData.matched)) {
+    if ((props.TurnDownUnmatched === true) && (!props.CardData.matched) && (isFlipped === true)) {
       console.log('reflip', props.CardData.index)
       setIsFlipped((prevIsFlipped) => props.CardData.Matched);
-      //Mỗi khi pick sai đang phải render lại mọi card chưa lật. Cần improve để chỉ duyệt qua những thằng đang lật.
-
     }
   }, [props.TurnDownUnmatched]);
 
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
       <div>
-        <button onClick={handleClick}>{props.CardUp}</button>
+        <button onClick={handleClick}>{/*props.CardUp*/}</button>
       </div>
 
       <div>

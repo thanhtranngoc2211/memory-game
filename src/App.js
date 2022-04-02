@@ -15,7 +15,7 @@ function App() {
   const [win, setWin] = useState(false);
   const [CardOne, setCardOne] = useState(null);
   const [CardTwo, setCardTwo] = useState(null);
-  const [TurnDownUnmatched, setTurnDownUnmatched] = useState(null);
+  const [TurnDownUnmatched, setTurnDownUnmatched] = useState(false);
   const [countMatched, setCountMatched] = useState(0);
 
   //handle first time playing (chưa bấm nút start)
@@ -24,6 +24,8 @@ function App() {
     setCountMatched((prevCountMatched) => 0);
     setWin((prevWin) => false);
     setMoves((prevMoves) => 0);
+    setTurnDownUnmatched((prevTurnDownUnmatched) => false);
+
     let roundArray = InitCard();
     setRoundEmojis(roundArray);
   }, []);
@@ -55,7 +57,7 @@ function App() {
   }, [CardOne, CardTwo]);
 
   // console.log(roundEmojis);
-  console.log(TurnDownUnmatched);
+  // console.log(TurnDownUnmatched);
   //   // reset choices
   const resetTurn = () => {
     setCardOne((prevCardOne) => null);
@@ -104,7 +106,7 @@ function App() {
           </div>
           {win && (
             <div className="win">
-              You won in {moves} moves! Press Start to play again!
+              You won in {moves} moves! Press Start or hit F5 to play again!
             </div>
           )}
         </div>

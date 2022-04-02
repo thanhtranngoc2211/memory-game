@@ -7,7 +7,7 @@ export default function StartButton(props) {
     props.setCountMatched((prevSetCountMatched) => 0);
     props.setWin((prevWin) => false);
     props.setMoves(prevMoves => 0);
-
+    props.setTurnDownUnmatched((prevTurnDownUnmatched) => false);
     let roundArray = InitCard();
     props.setRoundEmojis(roundArray);
   };
