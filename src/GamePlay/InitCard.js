@@ -65,7 +65,7 @@ const IncomingFeature = () => {
   let shuffledData = shuffle(InitData);
   let reIndexData = reIndex(shuffledData);
 
-  // IncomingFeature();
+  IncomingFeature();
   return reIndexData;
 };
 export default InitCard;
